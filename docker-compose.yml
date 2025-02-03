@@ -1,0 +1,28 @@
+services:
+  labelstudio:
+    image: heartexlabs/label-studio:latest
+    container_name: labelstudio
+    ports:
+      - "8080:8080"
+    environment:
+      - LABEL_STUDIO_HOST=http://host.docker.internal:8080
+      - LABEL_STUDIO_ALLOW_ORIGIN=*
+      - LABEL_STUDIO_LOG_LEVEL=DEBUG
+    volumes:
+      - labelstudio_data:/label-studio/data
+    depends_on:
+      - ml-backend
+
+  ml-backend:
+    build: ./ml-backend  # directory of ml backend
+    container_name: ml-backend
+    ports:
+      - "9090:9090"
+    environment:
+      - LABEL_STUDIO_ML_BACKEND=true
+    volumes:
+      - ./ml-backend:/app
+      - ./models/spacy-ner:/app/model  # Mount model directory
+
+volumes:
+  labelstudio_data:
