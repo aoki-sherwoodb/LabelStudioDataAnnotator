@@ -1,0 +1,8 @@
+<View>
+  <Labels name="label" toName="text">
+    <Label value="DEPARTMENT" background="red"/>
+    <Label value="INSTITUTION" background="blue"/>
+  </Labels>
+
+  <Text name="text" value="$text"/>
+</View>
